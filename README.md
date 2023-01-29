@@ -59,6 +59,8 @@ fn main() {
 use rsconfig::YamlConfig;
 use rsconfig::files;
 
+use yaml_rust;
+
 // our config class that we can expand upon to add different values
 // to expand upon it, simply add more fields and update the import function(s)
 #[derive(Debug)]
@@ -68,7 +70,7 @@ struct TestConfig {
 
 impl YamlConfig for TestConfig {
     fn from_yaml(yaml: Vec<yaml_rust::Yaml>) -> Self {
-        // fetch "test" value of first yaml document using yaml_rust crate
+        // fetch "test" value of the first yaml document using yaml_rust crate
         // NOTE: this code is not error-safe, will panic if the correct file formatting is not used
         Self { test: *&yaml[0]["test"].as_bool().unwrap() }
     }
