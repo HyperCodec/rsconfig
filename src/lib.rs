@@ -22,7 +22,7 @@ mod tests {
     
     use std::{env, fs, io::Result};
 
-    // our config class that we can expand upon to add different values
+    // config class that we can expand upon to add different values
     #[derive(Debug)]
     struct TestConfig {
         test: bool
