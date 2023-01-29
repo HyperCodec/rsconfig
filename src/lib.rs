@@ -6,18 +6,17 @@ use std::io;
 
 // TODO: add derive macro for Config and FileConfig via a crate named rsconfig-macros
 
-pub trait Config {}
-
-pub trait CommandlineConfig : Config {
+pub trait CommandlineConfig {
     fn from_env_args(args: Vec<String>) -> Self;
 }
 
-pub trait YamlConfig : Config {
+pub trait YamlConfig {
     fn from_yaml(yaml: Vec<Yaml>) -> Self;
     fn save_yaml(&self, path: &str) -> io::Result<()>;
 }
 
-pub trait FileConfig : Config + YamlConfig {}
+// TODO: add more file types
+pub trait FileConfig : YamlConfig {}
 
 #[cfg(test)]
 mod tests {
@@ -31,7 +30,6 @@ mod tests {
         test: bool
     }
 
-    impl Config for TestConfig {}
     impl FileConfig for TestConfig {}
 
     impl CommandlineConfig for TestConfig {
