@@ -4,7 +4,7 @@ use yaml_rust::Yaml;
 
 use std::io;
 
-// TODO: add derive macro for Config and FileConfig via rsconfig-macros
+// TODO: add derive macro for Config and FileConfig via a crate named rsconfig-macros
 
 pub trait Config {}
 
