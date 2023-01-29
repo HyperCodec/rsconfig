@@ -71,7 +71,7 @@ mod tests {
     }
 
     #[test]
-    fn file_test() {
+    fn yaml_test() {
         // loads from yaml; could use files::load_from_file(),
         // but since we already know the filetype, it's better to just do this
 
