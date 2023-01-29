@@ -25,6 +25,7 @@ mod tests {
     
     use std::{env, fs, io::Result};
 
+    // our config class that we can expand upon to add different values
     #[derive(Debug)]
     struct TestConfig {
         test: bool
@@ -54,10 +55,14 @@ mod tests {
         }
     }
 
+    // path to test.yml (ofc)
     const PATH: &str = "testing\\test.yml";
 
     #[test]
     fn args_test() {
+        // under normal test command (cargo test --package rsconfig --lib -- tests --nocapture),
+        // this will always create `config` with `test` as false
+
         let args: Vec<String> = env::args().collect();
 
         let mut config = TestConfig::from_env_args(args);
@@ -69,6 +74,9 @@ mod tests {
 
     #[test]
     fn file_test() {
+        // loads from yaml; could use files::load_from_file(),
+        // but since we already know the filetype, it's better to just do this
+
         let mut config: TestConfig = files::load_from_yaml(PATH);
 
         println!("{:?}", config);
