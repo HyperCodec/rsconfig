@@ -54,7 +54,7 @@ mod tests {
         }
     }
 
-    const PATH: &str = "test.yml";
+    const PATH: &str = "testing\\test.yml";
 
     #[test]
     fn args_test() {
