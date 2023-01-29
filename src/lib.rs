@@ -4,8 +4,6 @@ use yaml_rust::Yaml;
 
 use std::io;
 
-// TODO: add derive macro for Config and FileConfig via a crate named rsconfig-macros
-
 pub trait CommandlineConfig {
     fn from_env_args(args: Vec<String>) -> Self;
 }
