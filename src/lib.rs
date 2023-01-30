@@ -1,6 +1,6 @@
 #![warn(missing_docs)]
 
-//! A simple configuration library that allows for easy config.
+//! A simple configuration library that allows developers to quickly make configuration for their apps.
 
 /// Contains useful functions for importing from files
 pub mod files;
