@@ -141,7 +141,9 @@ pub trait YamlConfig {
 /// 
 ///     fn save_json(&self, path: &str) -> io::Result<()> {
 ///         // convert to json pretty format and save
-///         let data = serde_json::to_string_pretty(&Value::from(self.test)).unwrap();
+///         let mut m: Hashmap<&str, Value> = Hashmap::new();
+///         m.insert("test", &Value::from(self.test));
+///         let data = serde_json::to_string_pretty(m).unwrap();
 ///         fs::write(path, data).unwrap();
 /// 
 ///         Ok(())
@@ -156,7 +158,7 @@ pub trait JsonConfig {
     ///         // look for "test" val
     ///         // NOTE: this code is not error-safe, will panic if the json does not contain a bool named "test"
     ///         Self { test: val["test"].as_bool().unwrap() }
-    ///     }
+    /// }
     /// ```
     fn from_json(val: Value) -> Self;
 
@@ -171,7 +173,7 @@ pub trait JsonConfig {
     ///         fs::write(path, data).unwrap();
     /// 
     ///         Ok(())
-    ///     }
+    /// }
     /// ```
     fn save_json(&self, path: &str) -> io::Result<()>;
 }
