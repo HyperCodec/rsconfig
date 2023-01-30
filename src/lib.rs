@@ -1,5 +1,6 @@
 pub mod files;
 
+use serde_json::Value;
 use yaml_rust::Yaml;
 
 use std::io;
@@ -13,8 +14,13 @@ pub trait YamlConfig {
     fn save_yaml(&self, path: &str) -> io::Result<()>;
 }
 
+pub trait JsonConfig {
+    fn from_json(val: Value) -> Self;
+    fn save_json(&self, path: &str) -> io::Result<()>;
+}
+
 // TODO: add more file types
-pub trait FileConfig : YamlConfig {}
+pub trait FileConfig : YamlConfig + JsonConfig {}
 
 #[cfg(test)]
 mod tests {
@@ -27,8 +33,6 @@ mod tests {
     struct TestConfig {
         test: bool
     }
-
-    impl FileConfig for TestConfig {}
 
     impl CommandlineConfig for TestConfig {
         fn from_env_args(args: Vec<String>) -> Self {
@@ -51,8 +55,23 @@ mod tests {
         }
     }
 
-    // path to test.yml (ofc)
-    const PATH: &str = "testing\\test.yml";
+    impl JsonConfig for TestConfig {
+        fn from_json(val: Value) -> Self {
+            Self { test: val["test"].as_bool().unwrap() }
+        }
+
+        fn save_json(&self, path: &str) -> io::Result<()> {
+            fs::write(path, serde_json::to_string_pretty(&Value::from(self.test)).unwrap()).unwrap();
+
+            Ok(())
+        }
+    }
+
+    impl FileConfig for TestConfig {}
+
+    // path to test files
+    const YAML_PATH: &str = "testing\\test.yml";
+    const JSON_PATH: &str = "testing\\test.json";
 
     #[test]
     fn args_test() {
@@ -66,6 +85,8 @@ mod tests {
         println!("{:?}", config);
 
         change_config(&mut config);
+        
+        println!("{:?}", config);
     }
 
     #[test]
@@ -73,17 +94,32 @@ mod tests {
         // loads from yaml; could use files::load_from_file(),
         // but since we already know the filetype, it's better to just do this
 
-        let mut config: TestConfig = files::load_from_yaml(PATH);
+        let mut config: TestConfig = files::load_from_yaml(YAML_PATH);
 
         println!("{:?}", config);
 
         change_config(&mut config);
+
+        println!("{:?}", config);
+    }
+
+    #[test]
+    fn json_test() {
+        let mut config: TestConfig = files::load_from_json(JSON_PATH);
+
+        println!("{:?}", config);
+
+        change_config(&mut config);
+
+        println!("{:?}", config);
+
+        config.save_json(JSON_PATH).expect("Unable to save");
     }
 
     // swaps the `test` variable value and saves
     fn change_config(config: &mut TestConfig) {
         config.test = !config.test;
 
-        config.save_yaml(PATH).expect("Unable to save");
+        config.save_yaml(YAML_PATH).expect("Unable to save");
     }
 }
