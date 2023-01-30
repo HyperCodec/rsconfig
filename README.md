@@ -12,7 +12,6 @@ rsconfig = "0.1.0" # replace with latest version
 ### CommandlineConfig
 ```rust
 use rsconfig::CommandlineConfig;
-use std::{env, fs, io::Result};
 
 // our config class that we can expand upon to add different values
 // to expand upon it, simply add more fields and update the import function(s)
@@ -53,6 +52,8 @@ use rsconfig::YamlConfig;
 use rsconfig::files;
 
 use yaml_rust;
+
+use std::fs;
 
 // our config class that we can expand upon to add different values
 // to expand upon it, simply add more fields and update the import function(s)
@@ -111,6 +112,8 @@ use rsconfig::JsonConfig;
 use rsconfig::files;
 
 use serde_json;
+
+use std::fs;
 
 // our config class that we can expand upon to add different values
 // to expand upon it, simply add more fields and update the import function(s)
