@@ -13,6 +13,8 @@ rsconfig = "0.1.0" # replace with latest version
 ```rust
 use rsconfig::CommandlineConfig;
 
+use std::env;
+
 // our config class that we can expand upon to add different values
 // to expand upon it, simply add more fields and update the import function(s)
 #[derive(Debug)]
