@@ -25,7 +25,7 @@ struct TestConfig {
 impl CommandlineConfig for TestConfig {
     fn from_env_args(args: Vec<String>) -> Self {
         // check if commandline args contains --test
-        Self { test: args.contains(&"test".to_string()) }
+        Self { test: args.contains(&"--test".to_string()) }
     }
 }
 
