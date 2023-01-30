@@ -15,6 +15,13 @@ rsconfig = "0.1.0" # replace with latest version
 yaml-rust = "0.4.0" # replace with latest version used by RSCONFIG
 ```
 
+If using JsonConfig, you will have to add [serde_json](https://crates.io/crates/serde_json)
+```toml
+[dependencies]
+rsconfig = "0.1.0" # replace with latest version
+serde_json = "1.0.91" # replace with latest version used by RSCONFIG
+```
+
 ## Examples
 ### CommandlineConfig
 ```rust
@@ -55,7 +62,7 @@ fn main() {
 ### YamlConfig
 ```rust
 // import YamlConfig and files
-// files has 
+// files has some useful load functions
 use rsconfig::YamlConfig;
 use rsconfig::files;
 
@@ -96,12 +103,61 @@ impl YamlConfig for TestConfig {
 fn main() {
     /*
     NOTE: for a situation where you don't know the filetype,
-    you can impl FileConfig and use files::load_from_file, which would
-    work for different types of files.
+    you can impl FileConfig and use files::load_from_file, which
+    works for multiple different types of files.
     */
     let mut config: TestConfig = files::load_from_yaml();
 
     // should output TestConfig { test: true } if test: true in the yml file
+    // otherwise, it will print TestConfig { test: false }
+    println!("{:?}", config);
+
+    // you can change the value of the config
+    config.test = !config.test;
+}
+```
+
+### JsonConfig
+```rust
+// import JsonConfig and files
+// files has some useful load functions
+use rsconfig::JsonConfig;
+use rsconfig::files;
+
+use serde_json;
+
+// our config class that we can expand upon to add different values
+// to expand upon it, simply add more fields and update the import function(s)
+#[derive(Debug)]
+struct TestConfig {
+    test: bool
+}
+
+impl JsonConfig for TestConfig {
+    fn from_json(val: Value) -> Self {
+        // look for "test" val
+        // NOTE: this code is not error-safe, will panic if the json does not contain a bool named "test"
+        Self { test: val["test"].as_bool().unwrap() }
+    }
+
+    fn save_json(&self, path: &str) -> io::Result<()> {
+        // convert to json pretty format and save
+        let data = serde_json::to_string_pretty(&Value::from(self.test)).unwrap();
+        fs::write(path, data).unwrap();
+
+        Ok(())
+    }
+}
+
+fn main() {
+    /*
+    NOTE: for a situation where you don't know the filetype,
+    you can impl FileConfig and use files::load_from_file, which
+    works for multiple different types of files.
+    */
+    let mut config: TestConfig = files::load_from_json();
+
+    // should output TestConfig { test: true } if {"test": true} in the json file
     // otherwise, it will print TestConfig { test: false }
     println!("{:?}", config);
 
