@@ -19,7 +19,7 @@ pub trait JsonConfig {
     fn save_json(&self, path: &str) -> io::Result<()>;
 }
 
-// TODO: add more file types
+// TODO: add more file types and derive macro
 pub trait FileConfig : YamlConfig + JsonConfig {}
 
 #[cfg(test)]
