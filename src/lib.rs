@@ -105,6 +105,9 @@ mod tests {
 
     #[test]
     fn json_test() {
+        // loads from json; could use files::load_from_file(),
+        // but since we already know the filetype, it's better to just do this
+
         let mut config: TestConfig = files::load_from_json(JSON_PATH);
 
         println!("{:?}", config);
@@ -112,7 +115,8 @@ mod tests {
         change_config(&mut config);
 
         println!("{:?}", config);
-
+        
+        // saving both yaml and json but idc don't want to copy one line of code
         config.save_json(JSON_PATH).expect("Unable to save");
     }
 
