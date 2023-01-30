@@ -157,6 +157,43 @@ fn main() {
 }
 ```
 
+### FileConfig
+```rust
+#[derive(Debug)]
+struct TestConfig {
+    test: bool
+}
+
+impl YamlConfig for TestConfig {
+    fn from_yaml(yaml: Vec<yaml_rust::Yaml>) -> Self {
+        Self { test: *&yaml[0]["test"].as_bool().unwrap() }
+    }
+
+    fn save_yaml(&self, path: &str) -> Result<()> {
+        let mut data = "test: ".to_string();
+        data.push_str(self.test.to_string().as_str());
+
+        fs::write(path, data).unwrap();
+
+        Ok(())
+    }
+}
+
+impl JsonConfig for TestConfig {
+    fn from_json(val: Value) -> Self {
+        Self { test: val["test"].as_bool().unwrap() }
+    }
+
+    fn save_json(&self, path: &str) -> io::Result<()> {
+        fs::write(path, serde_json::to_string_pretty(&Value::from(self.test)).unwrap()).unwrap();
+
+        Ok(())
+    }
+}
+
+impl FileConfig for TestConfig {}
+```
+
 
 ## License
 Licensed under either of Apache License, Version 2.0 or MIT license at your option.
