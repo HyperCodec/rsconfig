@@ -5,7 +5,7 @@ Simple configuration library to help programs manage their config.
 If just using RSCONFIG, you can do this:
 ```toml
 [dependencies]
-rsconfig = "0.1.0" # replace with latest version
+rsconfig = "0.1.1" # replace with latest version
 ```
 
 ## Examples
