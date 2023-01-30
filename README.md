@@ -189,7 +189,11 @@ impl JsonConfig for TestConfig {
     }
 
     fn save_json(&self, path: &str) -> io::Result<()> {
-        fs::write(path, serde_json::to_string_pretty(&Value::from(self.test)).unwrap()).unwrap();
+        // convert to json pretty format and save
+        let mut m: Hashmap<&str, Value> = Hashmap::new();
+        m.insert("test", &Value::from(self.test));
+        let data = serde_json::to_string_pretty(m).unwrap();
+        fs::write(path, data).unwrap();
 
         Ok(())
     }
