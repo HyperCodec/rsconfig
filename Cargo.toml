@@ -4,10 +4,10 @@ version = "0.1.0"
 edition = "2021"
 authors = ["HyperCodec"]
 description = "A simple Rust configuration library"
-liscense = "MIT or Apache-2.0"
+license = "MIT or Apache-2.0"
 keywords = ["config", "configuration"]
 categories = ["command-line-utilities", "config", "filesystem"]
-exclude = ["testing/"]
+exclude = ["/testing/"]
 readme = "README.md"
 repository = "https://github.com/HyperCodec/rsconfig"
 
