@@ -120,7 +120,7 @@ struct TestConfig {
 }
 
 impl JsonConfig for TestConfig {
-    fn from_json(val: Value) -> Self {
+    fn from_json(val: serde_json::Value) -> Self {
         // look for "test" val
         // NOTE: this code is not error-safe, will panic if the json does not contain a bool named "test"
         Self { test: val["test"].as_bool().unwrap() }
