@@ -165,7 +165,9 @@ pub trait JsonConfig {
     /// ```rust
     /// fn save_json(&self, path: &str) -> io::Result<()> {
     ///         // convert to json pretty format and save
-    ///         let data = serde_json::to_string_pretty(&Value::from(self.test)).unwrap();
+    ///         let mut m: Hashmap<&str, Value> = Hashmap::new();
+    ///         m.insert("test", &Value::from(self.test));
+    ///         let data = serde_json::to_string_pretty(m).unwrap();
     ///         fs::write(path, data).unwrap();
     /// 
     ///         Ok(())
