@@ -85,8 +85,6 @@ mod tests {
         println!("{:?}", config);
 
         change_config(&mut config);
-        
-        println!("{:?}", config);
     }
 
     #[test]
@@ -99,8 +97,6 @@ mod tests {
         println!("{:?}", config);
 
         change_config(&mut config);
-
-        println!("{:?}", config);
     }
 
     #[test]
@@ -113,8 +109,6 @@ mod tests {
         println!("{:?}", config);
 
         change_config(&mut config);
-
-        println!("{:?}", config);
         
         // saving both yaml and json but idc don't want to copy one line of code
         config.save_json(JSON_PATH).expect("Unable to save");
@@ -125,5 +119,7 @@ mod tests {
         config.test = !config.test;
 
         config.save_yaml(YAML_PATH).expect("Unable to save");
+
+        println!("{:?}", config);
     }
 }
