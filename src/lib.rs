@@ -43,9 +43,6 @@ use std::io;
 ///     // should output TestConfig { test: true } if --test is in the command
 ///     // otherwise, it will print TestConfig { test: false }
 ///     println!("{:?}", config);
-/// 
-///     // you can change the value of the config
-///     config.test = !config.test;
 /// }
 /// ```
 pub trait CommandlineConfig {
@@ -63,6 +60,9 @@ pub trait CommandlineConfig {
 /// Represents a configuration struct that can be created from a YAML (YML) file.
 /// ### Example
 /// ```rust
+/// use yaml_rust;
+/// use rsconfig::YamlConfig;
+/// 
 /// struct TestConfig {
 ///     test: bool
 /// }
@@ -127,6 +127,10 @@ pub trait YamlConfig {
 /// Represents a configuration struct that can be created from a JSON file.
 /// ### Example
 /// ```rust
+/// use serde_json;
+/// 
+/// use rsconfig::JsonConfig;
+/// 
 /// #[derive(Debug)]
 /// struct TestConfig {
 ///     test: bool
@@ -177,6 +181,11 @@ pub trait JsonConfig {
 /// Represents a configuration struct that can be created from a number of file types.
 /// ### Example
 /// ```rust
+/// use rsconfig::{YamlConfig, JsonConfig, FileConfig};
+/// 
+/// use serde_json;
+/// use yaml_rust;
+/// 
 /// #[derive(Debug)]
 /// struct TestConfig {
 ///     test: bool
@@ -305,6 +314,15 @@ mod tests {
         
         // saving both yaml and json but idc don't want to copy one line of code
         config.save_json(JSON_PATH).expect("Unable to save");
+    }
+
+    #[test]
+    fn file_test() {
+        let mut config: TestConfig = files::load_from_file(YAML_PATH).expect("Unable to load from file");
+
+        println!("{:?}", config);
+
+        change_config(&mut config);
     }
 
     // swaps the `test` variable value and saves
