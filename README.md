@@ -1,4 +1,8 @@
 # RSCONFIG
+[<img alt="github" src="https://img.shields.io/github/last-commit/hypercodec/rsconfig" height="20">](https://github.com/hypercodec/rsconfig)
+[<img alt="crates.io" src="https://img.shields.io/crates/d/rsconfig" height="20">](https://crates.io/crates/rsconfig)
+[<img alt="docs.rs" src="https://img.shields.io/docsrs/rsconfig" height="20">](https://docs.rs/rsconfig)
+
 Simple configuration library to help programs manage their config.
 
 ## Importing
