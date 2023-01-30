@@ -8,20 +8,6 @@ If just using RSCONFIG, you can do this:
 rsconfig = "0.1.0" # replace with latest version
 ```
 
-Using YamlConfig, you will have to add [yaml-rust](https://crates.io/crates/yaml-rust):
-```toml
-[dependencies]
-rsconfig = "0.1.0" # replace with latest version
-yaml-rust = "0.4.0" # replace with latest version used by RSCONFIG
-```
-
-If using JsonConfig, you will have to add [serde_json](https://crates.io/crates/serde_json)
-```toml
-[dependencies]
-rsconfig = "0.1.0" # replace with latest version
-serde_json = "1.0.91" # replace with latest version used by RSCONFIG
-```
-
 ## Examples
 ### CommandlineConfig
 ```rust
