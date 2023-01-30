@@ -2,8 +2,23 @@
 name = "rsconfig"
 version = "0.1.0"
 edition = "2021"
+authors = ["HyperCodec"]
+description = "A simple Rust configuration library"
+liscense = "MIT"
+keywords = ["config", "configuration"]
+categories = ["command-line-utilities", "config", "filesystem"]
+exclude = ["testing/"]
+publish = ["rsconfig"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[profile.dev]
+opt-level = 1
+debug = true
+
+[profile.release]
+opt-level = 3
+debug = false
 
 [dependencies]
 yaml-rust = "0.4"
