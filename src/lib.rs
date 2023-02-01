@@ -224,14 +224,13 @@ pub trait JsonConfig {
 /// Represents a configuration struct that can be created from a number of file types.
 /// ### Example
 /// ```rust
-/// use rsconfig::{YamlConfig, JsonConfig};
-/// use rsconfig_macros::FileConfig
+/// use rsconfig::{YamlConfig, JsonConfig, FileConfig};
 ///
 /// use serde_json;
 /// use yaml_rust;
 /// 
 /// // rsconfig-macros crate has a derive macro for this trait
-/// #[derive(Debug, FileConfig)]
+/// #[derive(Debug)]
 /// struct TestConfig {
 ///     test: bool
 /// }
@@ -266,6 +265,7 @@ pub trait JsonConfig {
 ///         Ok(())
 ///     }
 /// }
+/// impl FileConfig for TestConfig {}
 /// ```
 
 pub trait FileConfig: YamlConfig + JsonConfig {}
@@ -278,7 +278,7 @@ mod tests {
     use std::{collections::HashMap, env, fs, io::Result};
 
     // config class that we can expand upon to add different values
-    #[derive(Debug, FileConfig)]
+    #[derive(Debug)]
     struct TestConfig {
         test: bool,
     }
@@ -325,6 +325,8 @@ mod tests {
             Ok(())
         }
     }
+    
+    impl FileConfig for TestConfig {}
 
     // path to test files
     const YAML_PATH: &str = "testing\\test.yml";
