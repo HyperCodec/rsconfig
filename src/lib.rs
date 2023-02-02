@@ -5,6 +5,9 @@
 /// Contains useful functions for importing from files
 pub mod files;
 
+/// Contains some prebuilt configuration structs to quickstart config
+pub mod quick;
+
 use serde_json::Value;
 use yaml_rust::Yaml;
 
