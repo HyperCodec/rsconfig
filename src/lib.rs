@@ -273,7 +273,6 @@ pub trait FileConfig: YamlConfig + JsonConfig {}
 #[cfg(test)]
 mod tests {
     use super::*;
-    use rsconfig_macros::*;
 
     use std::{collections::HashMap, env, fs, io::Result};
 
